@@ -1,0 +1,26 @@
+<template>
+    <h1>${title}</h1> <!-- default: mesmo que one-way -->
+    <h2>${title & oneTime}</h2> <!-- forçar tipo de bind -->
+
+    <div>
+        <label>bind</label> <!-- default: mesmo que two-way pq eh um elemento de form, se não for um elemento de form é one-way -->
+        <input type="text" value.bind="title"/>
+    </div>
+
+    <div>
+        <label>two-way</label>
+        <input type="text" value.two-way="title"/>
+    </div>
+
+    <div>
+        <label>one-way</label>
+        <input type="text" value.one-way="title"/>
+    </div>
+
+    <div>
+        <label>one-time</label>
+        <input type="text" value.one-time="title"/>
+    </div>
+
+</template>
+
