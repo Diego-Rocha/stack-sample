@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-"node/node" "node_modules/jspm/jspm.js"
