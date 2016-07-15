@@ -6,6 +6,10 @@ node_modules/
 jspm_packages/
 bower_components/
 
+# Maven Javascript Plugin#
+node/
+etc/
+
 # Intellij #
 .idea/
 *.iml

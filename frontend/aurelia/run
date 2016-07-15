@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+"node/node" "node_modules/http-server/bin/http-server" -o -c-1
