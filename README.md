@@ -3,9 +3,9 @@
 This is a demo project of integration of [SpringBoot](https://github.com/spring-projects/spring-boot) and [Aurelia](https://github.com/aurelia/framework)
 
 ## Requirements
- - Maven: 3.3
- - JDK: 8
- - Docker Compose: 1.7
+ - [Maven](https://maven.apache.org/): 3.3
+ - [JDK](http://openjdk.java.net): 8
+ - [Docker Compose](https://github.com/docker/compose): 1.7
  
 ## Build
  - run [util/build](util/build) script
