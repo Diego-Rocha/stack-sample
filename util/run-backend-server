@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd ../backend/spring-boot/app/
+java -jar target/app.jar

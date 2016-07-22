@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-sudo docker run \
- -it \
- --name docker-mysql \
- -e MYSQL_ROOT_PASSWORD=123456 \
- -e MYSQL_DATABASE=diego_sample \
- -p 3306:3306 \
- mariadb:10
