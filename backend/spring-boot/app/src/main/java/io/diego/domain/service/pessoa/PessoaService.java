@@ -6,4 +6,12 @@ import java.util.List;
 
 public interface PessoaService {
     List<Pessoa> findAll();
+
+    Pessoa findOne(Long id);
+
+    Pessoa save(Pessoa entity);
+
+    boolean exists(Pessoa entity);
+
+    void delete(Pessoa entity);
 }

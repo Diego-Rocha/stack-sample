@@ -11,10 +11,30 @@ import java.util.List;
 public class PessoaServiceImpl implements PessoaService {
 
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaRepository repository;
 
-    @Override
     public List<Pessoa> findAll() {
-        return pessoaRepository.findAll();
+        return repository.findAll();
     }
+
+    public Pessoa findOne(Long id){
+        return  repository.findOne(id);
+    }
+
+    public Pessoa save(Pessoa entity){
+        return repository.save(entity);
+    }
+
+    public boolean exists(Pessoa entity){
+        if(entity.getId() == null){
+            return false;
+        }
+        return repository.exists(entity.getId());
+    }
+
+    public void delete(Pessoa entity){
+        repository.delete(entity);
+    }
+
+
 }
