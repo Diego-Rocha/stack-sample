@@ -12,56 +12,58 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:8081")
+@CrossOrigin
 public class PessoaController {
 
     @Autowired
     private PessoaService service;
 
-    @RequestMapping(value="/pessoas",method = RequestMethod.GET)
+    private static final String PATH_ALL = "/pessoas";
+    private static final String PATH_ONE = "/pessoas/{id}";
+
+    @RequestMapping(value = PATH_ALL, method = RequestMethod.GET)
     public ResponseEntity<List<Pessoa>> getAll() {
         List<Pessoa> entities = service.findAll();
-        if(entities.isEmpty()){
+        if (entities.isEmpty()) {
             return new ResponseEntity<List<Pessoa>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Pessoa>>(entities,HttpStatus.OK);
+        return new ResponseEntity<List<Pessoa>>(entities, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/pessoas/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Pessoa> getOne(@PathVariable Long id){
+    @RequestMapping(value = PATH_ONE, method = RequestMethod.GET)
+    public ResponseEntity<Pessoa> getOne(@PathVariable Long id) {
         Pessoa entity = service.findOne(id);
-        if(entity == null){
+        if (entity == null) {
             return new ResponseEntity<Pessoa>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Pessoa>(entity, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/pessoas", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody Pessoa entity, UriComponentsBuilder ucBuilder){
+    @RequestMapping(value = PATH_ALL, method = RequestMethod.POST)
+    public ResponseEntity<Void> create(@RequestBody Pessoa entity, UriComponentsBuilder ucBuilder) {
         if (service.exists(entity)) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-
         service.save(entity);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/pessoas/{id}").buildAndExpand(entity.getId()).toUri());
+        headers.setLocation(ucBuilder.path(PATH_ONE).buildAndExpand(entity.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/pessoas/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Pessoa> update(@PathVariable("id") Long id, @RequestBody Pessoa entity) {
-        Pessoa currentEntity = service.findOne(id);
-        if (currentEntity == null) {
+    @RequestMapping(value = PATH_ONE, method = RequestMethod.PUT)
+    public ResponseEntity<Pessoa> update(@PathVariable Long id, @RequestBody Pessoa entity) {
+        Pessoa localEntity = service.findOne(id);
+        if (localEntity == null) {
             return new ResponseEntity<Pessoa>(HttpStatus.NOT_FOUND);
         }
-        currentEntity.setNome(entity.getNome());
-        service.save(currentEntity);
-        return new ResponseEntity<Pessoa>(currentEntity, HttpStatus.OK);
+        localEntity.setNome(entity.getNome());
+        service.save(localEntity);
+        return new ResponseEntity<Pessoa>(localEntity, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/pessoas/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    @RequestMapping(value = PATH_ONE, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         Pessoa entity = service.findOne(id);
         if (entity == null) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -69,6 +71,5 @@ public class PessoaController {
         service.delete(entity);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
-
 
 }
