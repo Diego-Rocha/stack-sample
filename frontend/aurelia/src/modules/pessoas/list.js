@@ -29,10 +29,13 @@ export class List {
     }
 
     deleteEntity(entity) {
+        if(!window.confirm("Tem certeza?")){
+            return;
+        }
         this.service.delete(entity.id).then(response => {
             let index = this.entities.indexOf(entity);
             this.entities.splice(index, 1);
-            alert(`${entity.nome}: removido com sucesso!`);
+            alert("Pessoa removida com sucesso!");
         }).catch(error => {
             alert(`${error.status}: erro ao excluir!`);
         });

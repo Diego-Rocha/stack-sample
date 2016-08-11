@@ -15,33 +15,42 @@ export class Edit {
 
     activate(params, navigation) {
         this.isEdit = navigation.name == 'edit';
-        if (this.isEdit) {
-            return this.service.getOne(params.id)
-                .then(response => response.json())
-                .then(pessoa => {
-                    this.entity = pessoa;
-                }).catch(error => {
-                    alert(`${error.status}: erro ao editar!`);
-                });
+        if (!this.isEdit) {
+            return;
         }
+        return this.service.getOne(params.id)
+            .then(response => response.json())
+            .then(pessoa => {
+                this.entity = pessoa;
+            }).catch(error => {
+                alert(`${error.status}: erro ao editar!`);
+            });
     }
 
     salvarEntity(entity) {
         if (this.isEdit) {
-            this.service.update(entity)
-                .then(response => response.json())
-                .then(pessoa => {
-                    this.entity = pessoa;
-                    alert(`${this.entity.id}: alterado com sucesso!`);
-                    this.router.navigateToRoute("list");
-                }).catch(error => {
-                alert(`${error.status}: erro ao alterar!`);
-            });
+            this._update(entity);
             return;
         }
+        this._create(entity);
+    }
+
+    _update(entity){
+        this.service.update(entity)
+            .then(response => response.json())
+            .then(pessoa => {
+                this.entity = pessoa;
+                alert("Pessoa alterada com sucesso!");
+                this.router.navigateToRoute("list");
+            }).catch(error => {
+            alert(`${error.status}: erro ao alterar!`);
+        });
+    }
+
+    _create(entity){
         this.service.create(entity)
             .then(response => {
-                alert(`salvo com sucesso!`);
+                alert("Pessoa salva com sucesso!");
                 this.router.navigateToRoute("list");
             }).catch(error => {
             alert(`${error.status}: erro ao salvar!`);
