@@ -6,8 +6,9 @@ node_modules/
 jspm_packages/
 bower_components/
 typings/
+dist/
 
-# Maven Javascript Plugin#
+# Maven Javascript Plugin #
 node/
 etc/
 
