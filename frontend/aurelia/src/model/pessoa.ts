@@ -1,3 +1,4 @@
-/**
- * Created by diego on 8/11/16.
- */
+export class Pessoa {
+    id:number;
+    nome:string;
+}
