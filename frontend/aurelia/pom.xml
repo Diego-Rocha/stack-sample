@@ -37,10 +37,25 @@
                             <goal>npm</goal>
                         </goals>
                     </execution>
+                    <!--<execution>-->
+                        <!--<id>jspm registry bower-endpoint</id>-->
+                        <!--<goals>-->
+                            <!--<goal>jspm</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<arguments>registry create bower jspm-bower-endpoint -y</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
                     <execution>
                         <id>jspm install</id>
                         <goals>
                             <goal>jspm</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>bower install</id>
+                        <goals>
+                            <goal>bower</goal>
                         </goals>
                     </execution>
                 </executions>

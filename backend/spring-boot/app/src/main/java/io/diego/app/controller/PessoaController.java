@@ -3,6 +3,10 @@ package io.diego.app.controller;
 import io.diego.domain.model.entity.pessoa.Pessoa;
 import io.diego.domain.service.pessoa.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +25,14 @@ public class PessoaController {
     private static final String PATH_ALL = "/pessoas";
     private static final String PATH_ONE = "/pessoas/{id}";
 
+    private static final String PAGINATE_PAGE = "0";
+    private static final String PAGINATE_SIZE = "10";
+
     @RequestMapping(value = PATH_ALL, method = RequestMethod.GET)
-    public ResponseEntity<List<Pessoa>> getAll() {
-        List<Pessoa> entities = service.findAll();
-        if (entities.isEmpty()) {
-            return new ResponseEntity<List<Pessoa>>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<List<Pessoa>>(entities, HttpStatus.OK);
+    public ResponseEntity<Page<Pessoa>> getAll(@RequestParam(required = false, defaultValue = PAGINATE_PAGE) int page, @RequestParam(required = false, defaultValue = PAGINATE_SIZE) int size) {
+        Pageable pageable = new PageRequest(page, size);
+        Page<Pessoa> entities = service.findAll(pageable);
+        return new ResponseEntity<Page<Pessoa>>(entities, HttpStatus.OK);
     }
 
     @RequestMapping(value = PATH_ONE, method = RequestMethod.GET)

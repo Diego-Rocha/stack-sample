@@ -5,7 +5,7 @@ define(["require", "exports"], function (require, exports) {
         }
         Index.prototype.configureRouter = function (config, router) {
             config.map([
-                { route: ['', 'list'], moduleId: './list', name: 'list' },
+                { route: ['', 'index', ':page'], moduleId: './list', name: 'list' },
                 { route: 'edit/:id', moduleId: './edit', name: 'edit' },
                 { route: 'create', moduleId: './edit', name: 'create' }
             ]);

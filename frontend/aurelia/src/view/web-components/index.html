@@ -1,0 +1,52 @@
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/google-map/google-map.html">
+<link rel="import" href="/bower_components/google-youtube/google-youtube.html">
+<template>
+    <section>
+        <h2>Paper-item</h2>
+        <div>
+            <paper-input label="Digite o valor do item" value.two-way="newItem"></paper-input>
+            <paper-button raised click.delegate="addItem()">Adicionar Item na lista</paper-button>
+        </div>
+        <div role="listbox" repeat.for="item of items">
+            <paper-item>${item}</paper-item>
+        </div>
+    </section>
+    <section>
+        <h2>Maps</h2>
+        <div>
+            <label for="latitude">Latitude!</label>
+            <input id="latitude" type="text" value.bind="latitude"/>
+        </div>
+        <div>
+            <label for="longitude">Longitude</label>
+            <input id="longitude" type="text" value.bind="longitude"/>
+        </div>
+
+        <google-map
+                latitude="${latitude}"
+                longitude="${longitude}"
+                fit-to-markers
+                zoom="15"
+                style="width:300px; height:200px;">
+            <google-map-marker latitude="${latitude}"
+                               longitude="${longitude}"
+                               draggable="true"
+                               title="Go Giants!">
+            </google-map-marker>
+        </google-map>
+    </section>
+    <section>
+        <h2>Youtube</h2>
+        <google-youtube
+                video-id="7hE5Pk8F4Uo"
+                height="400px"
+                width="300px"
+                rel="0"
+                start="5"
+                autoplay="0">
+        </google-youtube>
+    </section>
+</template>

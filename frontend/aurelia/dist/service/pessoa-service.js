@@ -18,8 +18,8 @@ define(["require", "exports", 'aurelia-framework', 'aurelia-fetch-client', 'fetc
             });
             this.httpClient = httpClient;
         }
-        PessoaService.prototype.getAll = function () {
-            return this.httpClient.fetch('pessoas');
+        PessoaService.prototype.getAll = function (page) {
+            return this.httpClient.fetch("pessoas?page=" + page);
         };
         PessoaService.prototype.getOne = function (id) {
             return this.httpClient.fetch("pessoas/" + id);

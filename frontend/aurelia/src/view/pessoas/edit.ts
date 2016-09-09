@@ -45,7 +45,7 @@ export class Edit {
             .then(pessoa => {
                 this.entity = pessoa;
                 alert("Pessoa alterada com sucesso!");
-                this.router.navigateToRoute("list");
+                this.router.navigateToRoute("pessoas");
             }).catch(error => {
             alert(`${error.status}: erro ao alterar!`);
         });
@@ -55,7 +55,7 @@ export class Edit {
         this.service.create(entity)
             .then(response => {
                 alert("Pessoa salva com sucesso!");
-                this.router.navigateToRoute("list");
+                this.router.navigateToRoute("pessoas");
             }).catch(error => {
             alert(`${error.status}: erro ao salvar!`);
         });

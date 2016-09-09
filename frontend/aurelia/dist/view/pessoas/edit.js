@@ -44,7 +44,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
                 .then(function (pessoa) {
                 _this.entity = pessoa;
                 alert("Pessoa alterada com sucesso!");
-                _this.router.navigateToRoute("list");
+                _this.router.navigateToRoute("pessoas");
             }).catch(function (error) {
                 alert(error.status + ": erro ao alterar!");
             });
@@ -54,7 +54,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
             this.service.create(entity)
                 .then(function (response) {
                 alert("Pessoa salva com sucesso!");
-                _this.router.navigateToRoute("list");
+                _this.router.navigateToRoute("pessoas");
             }).catch(function (error) {
                 alert(error.status + ": erro ao salvar!");
             });

@@ -11,16 +11,20 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
     "use strict";
     var List = (function () {
         function List(service, router) {
-            this.entities = [];
+            this.pagination = { number: 0, content: [] };
             this.service = service;
             this.router = router;
         }
-        List.prototype.activate = function () {
+        List.prototype.activate = function (params) {
+            this.pagination.number = parseInt(params.page) || 0;
+            return this.list();
+        };
+        List.prototype.list = function () {
             var _this = this;
-            return this.service.getAll()
+            return this.service.getAll(this.pagination.number)
                 .then(function (response) { return response.json(); })
-                .then(function (pessoas) {
-                _this.entities = pessoas;
+                .then(function (result) {
+                _this.pagination = result;
             });
         };
         List.prototype.createEntity = function () {
@@ -35,8 +39,8 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
                 return;
             }
             this.service.delete(entity.id).then(function (response) {
-                var index = _this.entities.indexOf(entity);
-                _this.entities.splice(index, 1);
+                var index = _this.pagination.content.indexOf(entity);
+                _this.pagination.content.splice(index, 1);
                 alert("Pessoa removida com sucesso!");
             }).catch(function (error) {
                 alert(error.status + ": erro ao excluir!");

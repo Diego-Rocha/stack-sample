@@ -1,5 +1,6 @@
 import {inject} from "aurelia-framework";
 import {Router} from "aurelia-router";
+
 import {PessoaService} from "../../service/pessoa-service";
 import {Pessoa} from '../../model/pessoa';
 
@@ -9,18 +10,23 @@ export class List {
     private service:PessoaService;
     private router:Router;
 
-    public entities:Pessoa[] = [];
+    public pagination = {number: 0,content: []};
 
     constructor(service:PessoaService, router:Router) {
         this.service = service;
         this.router = router;
     }
 
-    activate() {
-        return this.service.getAll()
+    activate(params) {
+        this.pagination.number = parseInt(params.page) || 0;
+        return this.list();
+    }
+
+    list(){
+        return this.service.getAll(this.pagination.number)
             .then(response => response.json())
-            .then(pessoas => {
-                this.entities = pessoas;
+            .then(result => {
+                this.pagination = result;
             });
     }
 
@@ -37,8 +43,8 @@ export class List {
             return;
         }
         this.service.delete(entity.id).then(response => {
-            let index:number = this.entities.indexOf(entity);
-            this.entities.splice(index, 1);
+            let index:number = this.pagination.content.indexOf(entity);
+            this.pagination.content.splice(index, 1);
             alert("Pessoa removida com sucesso!");
         }).catch(error => {
             alert(`${error.status}: erro ao excluir!`);

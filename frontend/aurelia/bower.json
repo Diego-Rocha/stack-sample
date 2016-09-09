@@ -1,0 +1,10 @@
+{
+  "name": "bower deps",
+  "private": true,
+  "dependencies": {
+    "google-map": "GoogleWebComponents/google-map#^1.1.11",
+    "google-youtube": "GoogleWebComponents/google-youtube#^1.2.1",
+    "paper-elements":"PolymerElements/paper-elements#^1.0.7",
+    "iron-elements":"PolymerElements/iron-elements#^1.0.10"
+  }
+}

@@ -17,8 +17,8 @@ export class PessoaService {
         this.httpClient = httpClient;
     }
 
-    getAll() {
-        return this.httpClient.fetch('pessoas');
+    getAll(page:number) {
+        return this.httpClient.fetch(`pessoas?page=${page}`);
     }
 
     getOne(id:number){
