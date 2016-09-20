@@ -1,1 +1,10 @@
-<template bindable="router"><nav class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle Navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="#"><i class="fa fa-home"></i> <span>${router.title}</span></a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav"><li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}"><a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1.in" href.bind="row.href">${row.title}</a></li></ul><ul class="nav navbar-nav navbar-right"><li class="loader" if.bind="router.isNavigating"><i class="fa fa-spinner fa-spin fa-2x"></i></li></ul></div></nav></template>
+<link rel="import" href="/jspm_packages/bower/paper-toolbar/paper-toolbar.html"><link rel="import" href="/jspm_packages/bower/paper-tabs/paper-tabs.html"><link rel="import" href="/jspm_packages/bower/paper-tab/paper-tab.html"><link rel="import" href="/jspm_packages/bower/paper-spinner/paper-spinner-lite.html"><template bindable="router"><style is="custom-style">paper-tab[link] a {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    paper-spinner-lite {
+      --paper-spinner-color: white;
+    }</style><paper-toolbar><paper-tabs selected="0" style="width: 600px"><paper-tab link repeat.for="row of router.navigation"><a href.bind="row.href" tabindex="-1">${row.title}</a></paper-tab></paper-tabs><paper-spinner-lite active.bind="router.isNavigating"></paper-spinner-lite></paper-toolbar></template>

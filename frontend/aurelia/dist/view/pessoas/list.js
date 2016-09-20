@@ -7,13 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "aurelia-router", "../../service/pessoa-service"], function (require, exports, aurelia_framework_1, aurelia_router_1, pessoa_service_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-router", "../../app", "../../service/pessoa-service"], function (require, exports, aurelia_framework_1, aurelia_router_1, app_1, pessoa_service_1) {
     "use strict";
     var List = (function () {
-        function List(service, router) {
+        function List(service, router, app) {
             this.pagination = { number: 0, content: [] };
             this.service = service;
             this.router = router;
+            this.app = app;
         }
         List.prototype.activate = function (params) {
             this.pagination.number = parseInt(params.page) || 0;
@@ -41,14 +42,15 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
             this.service.delete(entity.id).then(function (response) {
                 var index = _this.pagination.content.indexOf(entity);
                 _this.pagination.content.splice(index, 1);
-                alert("Pessoa removida com sucesso!");
+                _this.list();
+                _this.app.openDialogMessage("Info", "Pessoa removida com sucesso!");
             }).catch(function (error) {
                 alert(error.status + ": erro ao excluir!");
             });
         };
         List = __decorate([
-            aurelia_framework_1.inject(pessoa_service_1.PessoaService, aurelia_router_1.Router), 
-            __metadata('design:paramtypes', [pessoa_service_1.PessoaService, aurelia_router_1.Router])
+            aurelia_framework_1.inject(pessoa_service_1.PessoaService, aurelia_router_1.Router, app_1.App), 
+            __metadata('design:paramtypes', [pessoa_service_1.PessoaService, aurelia_router_1.Router, app_1.App])
         ], List);
         return List;
     }());

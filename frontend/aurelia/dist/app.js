@@ -4,7 +4,7 @@ define(["require", "exports"], function (require, exports) {
         function App() {
         }
         App.prototype.configureRouter = function (config, router) {
-            config.title = 'Aurelia';
+            config.title = 'Index';
             config.map([
                 {
                     route: ['', 'index'],
@@ -19,13 +19,6 @@ define(["require", "exports"], function (require, exports) {
                     moduleId: './view/pessoas/index',
                     nav: true,
                     title: 'Pessoas (CRUD teste)'
-                },
-                {
-                    route: ['web-components'],
-                    name: 'web-components',
-                    moduleId: './view/web-components/index',
-                    nav: true,
-                    title: 'Web Components'
                 }
             ]);
             this.router = router;

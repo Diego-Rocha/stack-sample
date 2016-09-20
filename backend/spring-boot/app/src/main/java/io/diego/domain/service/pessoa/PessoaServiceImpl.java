@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PessoaServiceImpl implements PessoaService {
 
@@ -19,22 +17,22 @@ public class PessoaServiceImpl implements PessoaService {
         return repository.findAll(pageable);
     }
 
-    public Pessoa findOne(Long id){
-        return  repository.findOne(id);
+    public Pessoa findOne(Long id) {
+        return repository.findOne(id);
     }
 
-    public Pessoa save(Pessoa entity){
+    public Pessoa save(Pessoa entity) {
         return repository.save(entity);
     }
 
-    public boolean exists(Pessoa entity){
-        if(entity.getId() == null){
+    public boolean exists(Pessoa entity) {
+        if (entity.getId() == null) {
             return false;
         }
         return repository.exists(entity.getId());
     }
 
-    public void delete(Pessoa entity){
+    public void delete(Pessoa entity) {
         repository.delete(entity);
     }
 

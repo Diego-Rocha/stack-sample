@@ -7,14 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "aurelia-router", "../../service/pessoa-service"], function (require, exports, aurelia_framework_1, aurelia_router_1, pessoa_service_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-router", "../../app", "../../service/pessoa-service"], function (require, exports, aurelia_framework_1, aurelia_router_1, app_1, pessoa_service_1) {
     "use strict";
     var Edit = (function () {
-        function Edit(service, router) {
+        function Edit(service, router, app) {
             this.isEdit = false;
             this.entity = null;
             this.service = service;
             this.router = router;
+            this.app = app;
         }
         Edit.prototype.activate = function (params, navigation) {
             var _this = this;
@@ -27,7 +28,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
                 .then(function (pessoa) {
                 _this.entity = pessoa;
             }).catch(function (error) {
-                alert(error.status + ": erro ao editar!");
+                _this.app.openDialogMessage("Error", error.status + ": erro ao editar!");
             });
         };
         Edit.prototype.salvarEntity = function (entity) {
@@ -43,25 +44,25 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "../../serv
                 .then(function (response) { return response.json(); })
                 .then(function (pessoa) {
                 _this.entity = pessoa;
-                alert("Pessoa alterada com sucesso!");
+                _this.app.openDialogMessage("Info", "Pessoa alterada com sucesso!");
                 _this.router.navigateToRoute("pessoas");
             }).catch(function (error) {
-                alert(error.status + ": erro ao alterar!");
+                _this.app.openDialogMessage("Error", error.status + ": erro ao alterar!");
             });
         };
         Edit.prototype.create = function (entity) {
             var _this = this;
             this.service.create(entity)
                 .then(function (response) {
-                alert("Pessoa salva com sucesso!");
+                _this.app.openDialogMessage("Info", "Pessoa salva com sucesso!");
                 _this.router.navigateToRoute("pessoas");
             }).catch(function (error) {
-                alert(error.status + ": erro ao salvar!");
+                _this.app.openDialogMessage("Error", error.status + ": erro ao salvar!");
             });
         };
         Edit = __decorate([
-            aurelia_framework_1.inject(pessoa_service_1.PessoaService, aurelia_router_1.Router), 
-            __metadata('design:paramtypes', [pessoa_service_1.PessoaService, aurelia_router_1.Router])
+            aurelia_framework_1.inject(pessoa_service_1.PessoaService, aurelia_router_1.Router, app_1.App), 
+            __metadata('design:paramtypes', [pessoa_service_1.PessoaService, aurelia_router_1.Router, app_1.App])
         ], Edit);
         return Edit;
     }());
